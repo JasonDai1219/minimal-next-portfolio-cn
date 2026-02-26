@@ -147,7 +147,7 @@ export default async function Project({ params }: ProjectPageProps) {
       {/* Page Info */}
       <div className="mb-7">
         <h2 className="font-heading text-3xl mb-5">Page Info</h2>
-        {project.pagesInfoArr.map((page, idx) => (
+        {project.pagesInfoArr.map((page: any, idx: number) => (
           <div key={idx}>
             <h3 className="flex items-center font-heading text-xl mt-3">
               <Icons.star className="h-5 w-5 mr-2" />
