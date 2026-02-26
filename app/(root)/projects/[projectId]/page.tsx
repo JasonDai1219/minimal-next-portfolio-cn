@@ -154,7 +154,7 @@ export default async function Project({ params }: ProjectPageProps) {
               {page.title}
             </h3>
             <p className="mt-1">{page.description}</p>
-            {page.imgArr.map((img, i) => (
+            {page.imgArr.map((img: string, i: number) => (
               <Image
                 key={i}
                 src={img}
