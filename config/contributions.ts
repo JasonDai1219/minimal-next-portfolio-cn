@@ -6,6 +6,7 @@ export interface contributionsInterface {
   icon?: string;
   date?: string;
   tags?: string[];
+  repo?: string;
 }
 
 export const contributions: contributionsInterface[] = [];
