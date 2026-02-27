@@ -1,3 +1,30 @@
+// config/projects.ts
+
+export interface ProjectInterface {
+  id: string;
+  companyName: string;
+  type: "Personal" | "Academic" | "Work" | string;
+  category: string[];
+  shortDescription: string;
+  websiteLink?: string;
+  githubLink?: string;
+  techStack?: string[];
+  startDate?: Date;
+  endDate?: Date;
+  companyLogoImg: string;
+
+  pagesInfoArr?: {
+    title: string;
+    description: string;
+    imgArr: string[];
+  }[];
+
+  descriptionDetails?: {
+    paragraphs?: string[];
+    bullets?: string[];
+  };
+}
+
 export const Projects: ProjectInterface[] = [
   {
     id: "time-machine-earth",
