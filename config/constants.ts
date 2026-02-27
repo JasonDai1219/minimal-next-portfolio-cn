@@ -40,4 +40,15 @@ export type ValidSkills =
   | "React"
   | "Next.js"
   | "Tailwind CSS"
-  | "Vercel";
+  | "Vercel"
+  | "Human-Computer Interaction"
+  | "Tableau";
+
+export type ValidPages =
+  | "home"
+  | "skills"
+  | "projects"
+  | "experience"
+  | "contributions"
+  | "contact"
+  | "resume";

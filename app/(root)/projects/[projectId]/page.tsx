@@ -30,6 +30,12 @@ export default async function Project({ params }: ProjectPageProps) {
   const isDsc102Tutor = project.id === "dsc102-ai-tutor";
   const DSC102_YT_EMBED = "https://www.youtube.com/embed/2krRz-4Fx3E";
 
+  // ---- Safe defaults (avoid undefined crashes & TS errors)
+  const techStack = project.techStack ?? [];
+  const descriptionParagraphs = project.descriptionDetails?.paragraphs ?? [];
+  const descriptionBullets = project.descriptionDetails?.bullets ?? [];
+  const pagesInfoArr = project.pagesInfoArr ?? [];
+
   return (
     <article className="container relative max-w-3xl py-6 lg:py-10">
       {/* Back button */}
@@ -47,26 +53,27 @@ export default async function Project({ params }: ProjectPageProps) {
       {/* Header */}
       <div>
         <time className="block text-sm text-muted-foreground">
-          {formatDateFromObj(project.startDate)}
+          {project.startDate ? formatDateFromObj(project.startDate) : null}
         </time>
 
         <h1 className="flex items-center justify-between mt-2 font-heading text-4xl leading-tight lg:text-5xl">
           {project.companyName}
           <div className="flex items-center">
-            {project.githubLink && (
+            {project.githubLink ? (
               <CustomTooltip text="Source code">
                 <Link href={project.githubLink} target="_blank">
                   <Icons.gitHub className="w-6 ml-4 text-muted-foreground hover:text-foreground" />
                 </Link>
               </CustomTooltip>
-            )}
-            {project.websiteLink && (
+            ) : null}
+
+            {project.websiteLink ? (
               <CustomTooltip text="Demo / External link">
                 <Link href={project.websiteLink} target="_blank">
                   <Icons.externalLink className="w-6 ml-4 text-muted-foreground hover:text-foreground" />
                 </Link>
               </CustomTooltip>
-            )}
+            ) : null}
           </div>
         </h1>
 
@@ -132,29 +139,28 @@ export default async function Project({ params }: ProjectPageProps) {
       {/* Tech Stack */}
       <div className="mb-7">
         <h2 className="font-heading text-3xl mb-2">Tech Stack</h2>
-        <ChipContainer textArr={project.techStack} />
+        <ChipContainer textArr={techStack} />
       </div>
 
       {/* Description */}
       <div className="mb-7">
         <h2 className="font-heading text-3xl mb-2">Description</h2>
-        <ProjectDescription
-          paragraphs={project.descriptionDetails.paragraphs}
-          bullets={project.descriptionDetails.bullets}
-        />
+        <ProjectDescription paragraphs={descriptionParagraphs} bullets={descriptionBullets} />
       </div>
 
       {/* Page Info */}
       <div className="mb-7">
         <h2 className="font-heading text-3xl mb-5">Page Info</h2>
-        {project.pagesInfoArr.map((page: any, idx: number) => (
+
+        {pagesInfoArr.map((page, idx) => (
           <div key={idx}>
             <h3 className="flex items-center font-heading text-xl mt-3">
               <Icons.star className="h-5 w-5 mr-2" />
               {page.title}
             </h3>
             <p className="mt-1">{page.description}</p>
-            {page.imgArr.map((img: string, i: number) => (
+
+            {page.imgArr.map((img, i) => (
               <Image
                 key={i}
                 src={img}
@@ -172,7 +178,10 @@ export default async function Project({ params }: ProjectPageProps) {
 
       {/* Footer Back */}
       <div className="flex justify-center py-6 lg:py-10">
-        <Link href="/projects" className={cn(buttonVariants({ variant: "ghost" }))}>
+        <Link
+          href="/projects"
+          className={cn(buttonVariants({ variant: "ghost" }))}
+        >
           <Icons.chevronLeft className="mr-2 h-4 w-4" />
           All Projects
         </Link>
